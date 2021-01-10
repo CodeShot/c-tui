@@ -16,7 +16,7 @@ void clear_win(struct tui_win *win)
 // Blit screen buffer to stdout
 void blit_win(struct tui_win *win)
 {
-    lseek(STDOUT_FILENO, SEEK_SET, 0);
+    lseek(STDOUT_FILENO, 0, SEEK_SET);
     write(STDOUT_FILENO, win->buffer, win->length);
 }
 
