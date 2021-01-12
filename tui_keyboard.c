@@ -1,55 +1,37 @@
 #include "tui.h"
 
-
-struct termios *init_keyboard()
+tui_keyboard_t *keyboard_create()
 {
-    struct termios *t = malloc(sizeof(*t)); 
-    struct termios *old = malloc(sizeof(*old));
+    return malloc(sizeof(tui_keyboard_t));
+}
 
-    tcgetattr(STDIN_FILENO, old);
+tui_keyboard_t *keyboard_init()
+{
+    tui_keyboard_t *kbd = keyboard_create();
 
+    tcgetattr(STDIN_FILENO, kbd->old);
     cfmakeraw(t);
-
-    tcsetattr(STDIN_FILENO, TCSANOW, t);
-
-    return old;
+    tcsetattr(STDIN_FILENO, TCSANOW, kbd-current);
+    return kbd;
 }
 
 
-void reset_keyboard(struct termios *t)
+void keyboard_reset(tui_keyboard_t *kbd)
 {
-    tcsetattr(STDIN_FILENO, TCSANOW, t);
+    tcsetattr(STDIN_FILENO, TCSANOW, kbd->old);
 }
 
 
-int8_t poll_keyboard(struct tui_event *event)
+tui_event_t *keyboard_poll()
 {
-    char chr;
     struct pollfd fd;
     fd.fd = STDIN_FILENO;
     fd.events = POLLIN;
 
-    if (poll(&fd, 1, 100) > 0) {
-        read(STDIN_FILENO, &chr, 1);
-        if (chr == 'q')
-            return -1;
-    }
-    
-    return 1;
+    if (poll(&fd, 1, 0) < 1)
+        return NULL;
+
+    tui_event_t *evt;
+    keyboard_readkey(fd.fd, evt);
+    read(fd.fd, &chr, 1);
 }
-
-/*
-int8_t poll_keyboard(struct tui_event *event)
-{
-    if (read(STDIN_FILENO, event->raw_data, 1) !=1)
-        return -1;
-
-    if (*event->raw_data[0] != '\x1b') 
-        return 0; // Escape sequence maybe initiated
-
-    if (*event->raw_data[1] != '[')
-        return 0; // Look for modifier
-
-    // COLLLECT ESCAPE SEQUENCE DATA        
-    return 0;
-}*/

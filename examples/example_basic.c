@@ -1,6 +1,6 @@
 #include "tui.h"
 #include <poll.h>
-
+#include <termios.h>
 
 int main()
 {
@@ -10,9 +10,9 @@ int main()
                     00, 00, 55, 00, 00, 00, 55, 00, 00, 00, 55, \
                     00, 00, 55, 00, 00, 00, 00, 55, 55, 55, 00};
 
-    struct tui_win *win = make_win();
-    struct tui_win *textbanner = make_subwin(5, 11);
-    memcpy(textbanner, ascii, 55);
+    tui_win_t *win = make_win();
+    tui_win_t *textbanner = make_subwin(5, 11);
+    memcpy(textbanner->buffer, &ascii, 55);
 
     const char *str = "This string is a test.";
     const char chr = 'x';
@@ -20,7 +20,7 @@ int main()
     uint8_t x = 0;
 
     struct termios *old = init_keyboard();
-    struct tui_event *evt = malloc(sizeof(*evt));
+    tui_event_t *evt = malloc(sizeof(*evt));
 
     blit_win(win);
 
