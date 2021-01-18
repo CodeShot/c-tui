@@ -7,6 +7,23 @@
 #include <stdint.h>
 #include <termios.h>
 
+
+/**
+ * Definitions
+ */
+
+// Event types 
+#define TUIEVT_KEY  0x1 // Keyboard event
+#define TUIEVT_FREQ 0x2 // Frequency triggered event
+
+// Character properties 
+#define TUICHR_EMPTY    32 // Character for empty position
+#define TUICHR_NORMAL   
+#define TUICHR_BLINK 
+
+#define ROW_ORIGIN 0
+#define COL_ORIGIN 0
+
 /**
  * @defgroup Window Functions for interacting with windows and subwindows
  */
@@ -31,6 +48,8 @@ void win_render(tui_win_t *win);
  * {
  */
 tui_cursor_t *cursor_make();
+void cursor_set(tui_cursor_t *c, uint16_t row, uint16_t col);
+void cursor_move(tui_cursor_t, uint16_t row_ofs, uint16_t col_ofs);
 void cursor_reset(tui_cursor_t *c); 
 void cursor_free(tui_cursor_t *c);
 char *cursor_repr(tui_cursor_t *c);

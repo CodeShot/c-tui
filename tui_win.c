@@ -21,7 +21,6 @@ tui_win_t *win_make_sub(tui_win_t *parent, uint16_t rows, uint16_t cols)
 {
     tui_win_t *win = create_win();
     win->is_root = false;
-//    win->is_wrap = false;
 
     // Set all struct values to 0 
     memset(win, 0, sizeof(*win));    

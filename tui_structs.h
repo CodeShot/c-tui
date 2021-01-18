@@ -4,19 +4,6 @@
 #include <datastructs/datastructs.h>
 #include <stdint.h>
 
-/**
- * Definitions
- */
-
-// Event types 
-#define TUIEVT_KEY  0x1 // Keyboard event
-#define TUIEVT_FREQ 0x2 // Frequency triggered event
-
-// Character properties 
-#define TUICHR_EMPTY    32 // Character for empty position
-#define TUICHR_NORMAL   
-#define TUICHR_BLINK 
-
 
 /**
  * Data structure
