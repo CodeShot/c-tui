@@ -78,6 +78,7 @@ void event_loop();
 tui_keyboard_t *keyboard_create();
 tui_keyboard_t *keyboard_init();
 void keyboard_reset(tui_keyboard_t *kbd);
+void keyboard_readkey(uint8_t fd, tui_event_t *evt);
 tui_event_t *keyboard_poll();
 /**
  * }

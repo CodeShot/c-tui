@@ -21,6 +21,11 @@ void keyboard_reset(tui_keyboard_t *kbd)
     tcsetattr(STDIN_FILENO, TCSANOW, kbd->old);
 }
 
+// Very unfinished, a keypress could be up to 4bytes if it is a escape sequence
+void keyboard_readkey(uint8_t fd, tui_event_t *evt)
+{
+    read(fd, &chr, 1);
+}
 
 tui_event_t *keyboard_poll()
 {
@@ -33,5 +38,4 @@ tui_event_t *keyboard_poll()
 
     tui_event_t *evt;
     keyboard_readkey(fd.fd, evt);
-    read(fd.fd, &chr, 1);
 }
