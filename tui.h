@@ -53,7 +53,7 @@ void event_loop();
  */
 
 /**
- * @defgroup Keyboard Keyboard funtions
+ * @defgroup Keyboard Funtions for keyboard handling
  * {
  */
 tui_keyboard_t *keyboard_create();
