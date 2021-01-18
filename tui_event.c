@@ -27,3 +27,8 @@ tui_event_t *event_dequeue(tui_event_queue_t *eq)
 {
     pop_queue(eq->q);
 }
+
+void event_loop()
+{
+        
+}
